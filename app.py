@@ -1,43 +1,56 @@
 import dash
-from dash import dcc, html
-from dash.dependencies import Input, Output
-import plotly.express as px
+from dash import dcc, html, Input, Output, State
+from upload_component import create_upload_component, parse_contents
+from dropdown_component import create_dropdown
+from graph_functions import create_graph
 import pandas as pd
 
-# Configurações iniciais do app
+
 app = dash.Dash(__name__)
+app.title = "Dashboard Modularizado"
 
-# Exemplo de dados para visualização
-df = pd.DataFrame({
-    "Categoria": ["A", "B", "C", "D"],
-    "Valores": [450, 250, 300, 500]
-})
+# holder do dataframe
+df_global = None
 
-# Layout do dashboard
+# Layout principal
 app.layout = html.Div([
-    html.H1("Dashboard Básico com Dash", style={'text-align': 'center'}),
-
-    # Dropdown para selecionar uma categoria (apenas exemplo)
-    dcc.Dropdown(id="selecao-categoria",
-                 options=[{"label": cat, "value": cat} for cat in df['Categoria']],
-                 value="A",
-                 style={'width': "40%"}),
-
-    # Gráfico
-    dcc.Graph(id="grafico-exemplo", figure={})
+    html.H1("Dashboard IMDb", style={'text-align': 'center'}),
+    create_upload_component(),
+    create_dropdown(),
+    dcc.Graph(id="grafico-selecionado")
 ])
 
-# Callback para atualizar o gráfico com base na seleção
+# callback p upload e atualizar taabela
 @app.callback(
-    Output(component_id="grafico-exemplo", component_property="figure"),
-    [Input(component_id="selecao-categoria", component_property="value")]
+    [Output("upload-status", "children"),
+     Output("data-table", "data"),
+     Output("data-table", "columns")],
+    [Input("upload-data", "contents")],
+    [State("upload-data", "filename")]
 )
-def atualizar_grafico(categoria_selecionada):
-    # Filtra os dados e cria um gráfico simples de barras
-    df_filtrado = df[df["Categoria"] == categoria_selecionada]
-    fig = px.bar(df_filtrado, x="Categoria", y="Valores", title=f"Valores para {categoria_selecionada}")
-    return fig
+def atualizar_dataset(contents, filename):
+    global df_global
+    if contents is not None:
+        df_global = parse_contents(contents, filename)
+        if df_global is not None:
+            columns = [{"name": col, "id": col} for col in df_global.columns]
+            data = df_global.to_dict("records")
+            return f"Arquivo '{filename}' carregado com sucesso!", data, columns
+        else:
+            return "Erro ao carregar o arquivo. Certifique-se de que é um CSV.", [], []
+    return "Nenhum arquivo carregado ainda.", [], []
 
-# Rodar o servidor do dashboard
-if __name__ == '__main__':
+
+
+# callback da atualização de leve do gráfico
+@app.callback(
+    Output("grafico-selecionado", "figure"),
+    Input("dropdown-graficos", "value")
+)
+def atualizar_grafico(tipo_grafico):
+    global df_global
+    return create_graph(tipo_grafico, df_global)
+
+
+if __name__ == "__main__":
     app.run_server(debug=True)
