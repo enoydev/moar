@@ -7,7 +7,7 @@ import pandas as pd
 
 
 app = dash.Dash(__name__)
-app.title = "Dashboard Modularizado"
+app.title = "Grandi"
 
 # holder do dataframe
 df_global = None
