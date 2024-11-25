@@ -23,7 +23,15 @@ def create_upload_component():
             },
             multiple=False  # Permitir apenas um arquivo por vez
         ),
-        html.Div(id="upload-status", style={"margin-top": "10px"}),
+        # Adicionando o indicador de loading ao status de upload
+        dcc.Loading(
+            id="loading-upload",
+            overlay_style={"visibility":"visible", "filter": "blur(2px)"},
+            type="circle",  # Você pode trocar para 'circle' ou 'dot'
+            children=[
+                html.Div(id="upload-status", style={"margin-top": "10px"}),
+            ],
+        ),
         dash_table.DataTable(
             id="data-table",
             style_table={'overflowX': 'auto'},

@@ -15,10 +15,20 @@ def create_graph(graph_type, df):
         df_genres.columns = ["Genre", "Count"]
         fig = px.bar(df_genres, x="Genre", y="Count", title="Gêneros Mais Populares")
     elif graph_type == "rating_vs_votes":
-        fig = px.scatter(df, x="averageRating", y="numVotes", title="Relação: Avaliação x Votos")
+        df_filtered = df[["averageRating", "numVotes"]].dropna()
+        df_filtered = df_filtered[df_filtered["numVotes"] < 1000000]
+        df_filtered = df_filtered.sample(min(len(df_filtered), 5000))
+        fig = px.scatter(df_filtered, x="averageRating", y="numVotes", 
+            title="Relação: Avaliação x Votos")
+
     elif graph_type == "count_by_type":
-        fig = px.bar(df["type"].value_counts().reset_index(), x="index", y="type",
-                     labels={"index": "Type", "type": "Count"}, title="Quantidade por Tipo")
+        # Gerar o DataFrame com contagem por tipo
+        df_count = df["type"].value_counts().reset_index()
+        df_count.columns = ["Type", "Count"]  # Renomear colunas
+        fig = px.bar(df_count, x="Type", y="Count",
+            labels={"Type": "Tipo", "Count": "Quantidade"},
+            title="Quantidade por Tipo")
+
     else:
         fig = px.scatter(title="Nenhum gráfico selecionado")
 
