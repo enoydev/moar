@@ -1,18 +1,25 @@
 ## Instalação
 
-1)Crie Sua pasta no Vscode
+1) Clone o repositório diretório desejado
+   ```
+      git clone https://github.com/enoydev/moar.git
+   ```
 
-2)CTRL+SHIFT+P e Crie sua venv
-
-Clone o repositório em sua máquina:
-
-```bash
-git clone https://github.com/enoydev/moar.git
+2)Crie sua Env
 ```
-Instale as dependências:
+python3 -m venv env
+```
+
+3) Inicie a env
+```
+source env/bin/activate
+```
+
+  
+4) Instale as dependências no diretório com a env iniciada:
 
 ```
-cd moar; pip install -r requirements.txt
+ pip install -r requirements.txt
 ```
 
 ## Execute app.py
