@@ -1,0 +1,148 @@
+/* Estilo geral para o corpo */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #F5F5F5; /* Fundo claro e neutro */
+    margin: 0;
+    padding: 0;
+}
+
+/* Estilo para o título principal */
+h1 {
+    text-align: center;
+    font-size: 36px;
+    font-weight: bold;
+    color: #007BFF; /* Azul vibrante */
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+/* Contêiner principal */
+div {
+    max-width: 1200px; /* Limite de largura */
+    margin: 0 auto; /* Centralizado */
+    padding: 10px;
+}
+
+/* Estilo para o botão "Gerar Insight" */
+#botao-grafico {
+    background-color: #007BFF; /* Azul vibrante */
+    color: white; /* Texto branco */
+    border: none; /* Remove bordas */
+    border-radius: 12px; /* Bordas arredondadas */
+    padding: 12px 24px; /* Espaçamento interno */
+    font-size: 16px; /* Tamanho da fonte */
+    font-weight: bold; /* Negrito */
+    cursor: pointer; /* Cursor pointer */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra suave */
+    transition: background-color 0.3s ease, transform 0.2s ease; /* Transições suaves */
+}
+
+#botao-grafico:hover {
+    background-color: #0056b3; /* Azul mais escuro no hover */
+    transform: translateY(-2px); /* Elevação sutil */
+}
+
+/* Estilo para o gráfico */
+#grafico-selecionado {
+    margin-top: 20px;
+    border: 1px solid #E5E5E5; /* Borda sutil ao redor do gráfico */
+    border-radius: 8px; /* Bordas arredondadas */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra suave */
+}
+
+/* Estilo para mensagens (ex.: mensagens de erro ou sucesso) */
+#mensagem-botao {
+    margin-top: 10px;
+    font-size: 16px;
+    color: #4A4A4A; /* Cinza escuro */
+    padding: 10px;
+    background-color: #FFFFFF; /* Fundo branco */
+    border: 1px solid #E5E5E5; /* Borda sutil */
+    border-radius: 8px; /* Bordas arredondadas */
+}
+
+/* Estilo para insights */
+.insight-container {
+    border: 1px solid #E5E5E5; /* Borda sutil */
+    border-radius: 10px; /* Bordas arredondadas */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra suave */
+    padding: 20px;
+    background: linear-gradient(135deg, #FFFFFF, #F9FAFB); /* Gradiente suave */
+    margin-top: 20px;
+}
+
+/* Estilo para o texto do insight */
+.insight-text {
+    font-size: 18px;
+    color: #4A4A4A;
+    line-height: 1.6;
+    margin: 0;
+}
+
+#mensagem-botao h4 {
+    color: #007BFF;  /* Azul vibrante */
+    font-weight: bold;
+    margin-bottom: 10px;
+    font-family: 'Arial', sans-serif;
+}
+
+#mensagem-botao p {
+    font-size: 18px;
+    color: #4A4A4A;
+    line-height: 1.6;
+    margin: 0;
+}
+
+
+#dropdown-graficos {
+    width: 100%;
+    max-width: 800px;
+    margin: auto;
+    padding: 10px;
+    font-size: 16px;
+    background-color: #f4f4f9;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+#dropdown-graficos .Select-control {
+    background-color: #ffffff;
+    border: 1px solid #007bff;
+    border-radius: 4px;
+    padding: 5px;
+    font-size: 16px;
+}
+
+#dropdown-graficos .Select-placeholder {
+    color: #888;
+}
+
+#dropdown-graficos .Select-menu-outer {
+    border-radius: 5px;
+}
+
+#dropdown-graficos .Select-option {
+    font-size: 14px;
+    padding: 8px;
+}
+
+#dropdown-graficos .Select-option.is-selected {
+    background-color: #007bff;
+    color: white;
+}
+
+#dropdown-graficos .Select-option.is-focused {
+    background-color: #e0e0e0;
+}
+
+html.Div {
+    margin-bottom: 20px;
+}
+
+html.Label {
+    display: block;
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #333;
+}

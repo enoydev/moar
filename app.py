@@ -7,24 +7,31 @@ import os
 import plotly.express as px
 import logging
 from datetime import datetime
+from insights import insight
+
 # Configurar logs
 logging.basicConfig(level=logging.INFO)
 
 # Inicializar o app Dash
 app = dash.Dash(__name__)
-app.title = "Dash"
+app.title = "REBYTE"
 
 # Holder do DataFrame global
 df_global = None
 
 # Layout principal
 app.layout = html.Div([
-    html.H1("Dashboard IMDb", style={'text-align': 'center'}),
+    html.H1("REBYTE"),  # Estilo movido para style.css
     create_upload_component(),
     create_dropdown(),
     dcc.Graph(id="grafico-selecionado"),
-    html.Button("Clique aqui", id="botao-grafico", n_clicks=0),
-    html.Div(id="mensagem-botao", style={"margin-top": "10px", "font-size": "16px"}),
+    html.Button("Gerar Insight", id="botao-grafico", n_clicks=0),  # Estilo movido para style.css
+    html.Div(id="mensagem-botao"),  # Apenas um ID "mensagem-botao"
+    dcc.Loading(
+        id="loading-insight",
+        type="circle",  # Pode ser "circle", "default" ou "dot"
+        children=html.Div(id="loading-mensagem-botao"),  # Alterado para "loading-mensagem-botao"
+    ),
 ])
 
 # Callback para upload, gráfico e botão
@@ -44,7 +51,7 @@ def atualizar_interface(contents, n_clicks_botao, tipo_grafico, filename):
     ctx = dash.callback_context
     triggered_id = ctx.triggered[0]["prop_id"].split(".")[0]
 
-    mensagem_botao = "Nenhum botão clicado."
+    mensagem_botao = ""
     grafico_vazio = px.scatter(title="Nenhum gráfico disponível")  # Gráfico vazio padrão
 
     try:
@@ -75,16 +82,27 @@ def atualizar_interface(contents, n_clicks_botao, tipo_grafico, filename):
             logging.info(f"Botão clicado {n_clicks_botao} vezes.")
             if n_clicks_botao > 0 and tipo_grafico and df_global is not None:
                 fig = create_graph(tipo_grafico, df_global)
-                mensagem_botao = "Gráfico salvo com sucesso!"
-                
-                # Gerar um nome único com timestamp
-                timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-                file_path = os.path.join(os.getcwd(), f"grafico_{tipo_grafico}_{timestamp}.png")
+                #mensagem_botao = "Gráfico salvo com sucesso!"
+                file_path = os.path.join(os.getcwd(), "img.png")
                 
                 logging.info(f"Salvando gráfico em {file_path}")
                 fig.write_image(file_path)
                 logging.info("Gráfico salvo com sucesso.")
                 
+                # Obtendo o insight
+                ai_msg = insight()
+
+                # Criando o conteúdo HTML com o insight sem a estilização
+                insight_html = html.Div(
+                    [
+                        html.H4("Insight:"), 
+                        html.P(ai_msg)
+                    ]
+                )
+
+                # Combinando a mensagem do botão com o insight
+                mensagem_botao = [insight_html]
+
                 return (
                     dash.no_update,
                     dash.no_update,
@@ -93,7 +111,7 @@ def atualizar_interface(contents, n_clicks_botao, tipo_grafico, filename):
                     mensagem_botao
                 )
             else:
-                mensagem_botao = "Nenhum gráfico selecionado para salvar."
+                mensagem_botao = "Adicione o arquivo CSV primeiro."
                 return (
                     dash.no_update,
                     dash.no_update,
