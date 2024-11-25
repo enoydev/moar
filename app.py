@@ -98,7 +98,7 @@ def gerar_insight(n_clicks, tipo_grafico):
             fig.write_image(file_path)
             logging.info("Gráfico salvo com sucesso.")
             
-            ai_msg = insight()
+            ai_msg = insight(file_path)
             return html.Div([
                 html.H4("Insight:"),
                 html.P(ai_msg)
