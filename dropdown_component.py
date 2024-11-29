@@ -7,11 +7,10 @@ def create_dropdown():
         dcc.Dropdown(
             id="dropdown-graficos",
             options=[
-                {"label": "Distribuição de Avaliações", "value": "histogram_rating"},
-                {"label": "Número de Votos por Ano", "value": "votes_by_year"},
-                {"label": "Gêneros Mais Populares", "value": "popular_genres"},
-                {"label": "Correlação: Avaliação x Votos", "value": "rating_vs_votes"},
-                {"label": "Quantidade por Tipo", "value": "count_by_type"}
+                {"label": "Distribuição dos Valores", "value": "distribuicao_valores"},
+                {"label": "Total por Categoria", "value": "total_por_categoria"},
+                {"label": "Frequência por Status", "value": "frequencia_status"},
+                {"label": "Distribuição Temporal", "value": "distribuicao_temporal"}
             ],
             value=None,
             clearable=True,

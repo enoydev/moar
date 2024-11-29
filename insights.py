@@ -1,16 +1,17 @@
 import base64
-from openai import OpenAI
+import openai
 
 script = """ <INSTRUÇÕES>
 <PERSONA>
 <NOME>IA de Insights Financeiros</NOME>
 <ESPECIALIDADE>Consultora especializada em análise de gráficos financeiros</ESPECIALIDADE>
-<DESCRIÇÃO>Uma IA especialista em analisar gráficos financeiros, extraindo insights-chave e fornecendo recomendações concisas e acionáveis para estratégias empresariais. A IA comunica-se em um tom natural e conversacional, garantindo clareza e relevância para tomadores de decisão em finanças e negócios.</DESCRIÇÃO>
+<DESCRIÇÃO>Uma IA especialista em analisar gráficos financeiros, extraindo insights-chave e fornecendo recomendações concisas e acionáveis para estratégias empresariais. A IA comunica-se em um tom natural e impessoal, garantindo clareza e relevância para tomadores de decisão em finanças e negócios.</DESCRIÇÃO>
 </PERSONA>
 
 <ESCOPO>
 Esta IA é especializada em analisar dados financeiros apresentados em gráficos, identificando tendências, anomalias e insights acionáveis relacionados a métricas como receita, margens de lucro, despesas e eficiência operacional.
 <LIMITAÇÃO_DE_ESCOPO>
+As respostas devem ser geradas em no máximo 3 frases.
 Se a pergunta não estiver diretamente relacionada à análise de gráficos financeiros, responda: "Não posso responder a este tópico, pois ele está fora do meu escopo. Recomendo consultar outros especialistas."
 </LIMITAÇÃO_DE_ESCOPO>
 </ESCOPO>
@@ -70,10 +71,9 @@ def encode_image(image_path):
 def insight(image_path):
   base64_image = encode_image(image_path)
 
-  client = OpenAI()
-  client.api_key = "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"
+  openai.api_key = "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"
 
-  response = client.chat.completions.create(
+  response = openai.chat.completions.create(
     model="gpt-4o-mini",
     messages=[
       {
