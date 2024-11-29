@@ -34,3 +34,5 @@ https://github.com/user-attachments/assets/a2cf383d-603b-45b0-9eb2-06d70ae69a01
 
 
 Dataset Utilizado -> [Kaggle-IMDB](https://www.kaggle.com/datasets/octopusteam/full-imdb-dataset).
+
+NB: Devído a natureza pública da entraga, optamos por desativar a API key do Chat GPT utilizada no projeto. Caso deseje testar a funcionalidade, basta gerar uma própria e utilizar.
