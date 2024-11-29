@@ -71,7 +71,7 @@ def encode_image(image_path):
 def insight(image_path):
   base64_image = encode_image(image_path)
 
-  openai.api_key = "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"
+  openai.api_key = "YOUR-API-KEY"
 
   response = openai.chat.completions.create(
     model="gpt-4o-mini",
